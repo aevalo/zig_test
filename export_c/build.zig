@@ -4,31 +4,33 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const mode = b.standardOptimizeOption(.{});
 
-    const lib = b.addSharedLibrary(.{
+    const lib = b.addLibrary(.{
         .name = "mathtest",
-        .target = target,
-        .optimize = mode,
-        .root_source_file = b.path("src/mathtest.zig"),
+        .linkage = .dynamic,
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("src/mathtest.zig"),
+            .target = target,
+            .optimize = mode,
+            .pic = true,
+            .strip = mode != .Debug, // remove debug symbols
+        }),
         .version = .{ .major = 1, .minor = 0, .patch = 0 },
     });
 
     lib.installHeadersDirectory(b.path("include"), "", .{});
     b.installArtifact(lib);
 
-    //const header_install = b.addInstallHeaderFile(
-    //    b.path("include/mathtest.h"),
-    //    "mathtest.h",
-    //);
-    //b.getInstallStep().dependOn(&header_install.step);
-
     const exe = b.addExecutable(.{
         .name = "test",
-        .target = target,
-        .optimize = mode,
-        .link_libc = true,
+        .root_module = b.createModule(.{
+            .target = target,
+            .optimize = mode,
+            .link_libc = true,
+            .strip = mode != .Debug, // remove debug symbols
+        }),
     });
 
-    exe.addCSourceFile(.{
+    exe.root_module.addCSourceFile(.{
         .file = b.path("src/test.c"),
         .flags = &[_][]const u8{"-std=c11"},
     });

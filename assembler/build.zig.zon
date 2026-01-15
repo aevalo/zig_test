@@ -1,7 +1,7 @@
 .{
-    .name = .pyzig,
-    .version = "0.0.0",
-    .fingerprint = 0x17483157f7dd6b69, // Changing this has security and trust implications.
+    .name = .assembler,
+    .version = "0.0.1",
+    .fingerprint = 0x1db672a79c12a8ce, // Changing this has security and trust implications.
     .minimum_zig_version = "0.15.2",
     .dependencies = .{},
     .paths = .{
