@@ -1,0 +1,19 @@
+.{
+    .name = "my-wtf-project",
+    .version = "0.0.1",
+    .minimum_zig_version = "0.11.0",
+    .dependencies = .{
+        .zap = .{
+            .url = "https://github.com/zigzap/zap/archive/refs/tags/v0.9.1.tar.gz",
+            .hash = "1220002d24d73672fe8b1e39717c0671598acc8ec27b8af2e1caf623a4fd0ce0d1bd",
+        },
+        .duck = .{
+            .url = "https://github.com/beachglasslabs/zig-duckdb/archive/refs/tags/v0.0.7.tar.gz",
+            .hash = "12207c44a5bc996bb969915a5091ca9b70e5bb0f9806827f2e3dd210c946e346a05e",
+        }
+    },
+
+    .paths = .{
+        "",
+    },
+}
