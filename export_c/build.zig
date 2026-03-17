@@ -17,7 +17,7 @@ pub fn build(b: *std.Build) void {
         .version = .{ .major = 1, .minor = 0, .patch = 0 },
     });
 
-    lib.installHeadersDirectory(b.path("include"), "", .{});
+    //lib.installHeadersDirectory(b.path("include"), "", .{});
     b.installArtifact(lib);
 
     const exe = b.addExecutable(.{
@@ -35,9 +35,11 @@ pub fn build(b: *std.Build) void {
         .flags = &[_][]const u8{"-std=c11"},
     });
 
+    const h_path = lib.getEmittedH();
+    exe.step.dependOn(&h_path);
+
     exe.linkLibrary(lib);
     b.installArtifact(exe);
-
     const run_cmd = b.addRunArtifact(exe);
 
     const test_step = b.step("test", "Test the program");

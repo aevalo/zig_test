@@ -8,6 +8,7 @@ pub fn build(b: *std.Build) void {
 
     const asmlib = b.addLibrary(.{ .name = "asmlib", .root_module = b.createModule(.{ .target = target, .optimize = optimize }), .linkage = .static });
     asmlib.root_module.addAssemblyFile(b.path("src/add.s"));
+    asmlib.root_module.addAssemblyFile(b.path("src/hello.s"));
     asmlib.root_module.addAssemblyFile(b.path("src/my_strlen.s"));
     asmlib.installHeadersDirectory(b.path("src"), "asmlib", .{ .include_extensions = &.{".h"} });
     b.installArtifact(asmlib);
@@ -66,7 +67,7 @@ pub fn build(b: *std.Build) void {
             .strip = optimize != .Debug, // remove debug symbols
         }),
     });
-    c_exe.root_module.addCSourceFile(.{ .file = b.path("src/casm.c"), .flags = flags });
+    c_exe.root_module.addCSourceFile(.{ .file = b.path("src/main.c"), .flags = flags });
     c_exe.root_module.linkLibrary(asmlib);
 
     b.installArtifact(c_exe);

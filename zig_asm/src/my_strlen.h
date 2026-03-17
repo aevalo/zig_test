@@ -3,4 +3,4 @@
 
 int my_strlen(const char *str);
 
-#endif // MY_STRLEN_H
+#endif /* MY_STRLEN_H */

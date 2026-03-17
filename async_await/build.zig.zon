@@ -1,0 +1,12 @@
+.{
+    .name = .async_await,
+    .version = "0.0.1",
+    .fingerprint = 0xc1bcefd67f14226c, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.16.0",
+    .dependencies = .{},
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}

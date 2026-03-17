@@ -1,4 +1,5 @@
 const std = @import("std");
+
 const zig_asm = @import("zig_asm");
 
 pub fn main() !void {
@@ -7,6 +8,8 @@ pub fn main() !void {
     const allocator = std.heap.page_allocator;
 
     std.debug.print("3 + 7 = {d}\n", .{zig_asm.add(3, 7)});
+
+    zig_asm.hello_world();
 
     // Initialize arguments
     // Then deinitialize at the end of scope
@@ -17,12 +20,9 @@ pub fn main() !void {
     _ = argsIterator.next();
 
     // Handle cases accordingly
-    if (argsIterator.next()) |arg|
-    {
-        std.debug.print("The length of \"{s}\" is {d}\n", .{arg, zig_asm.my_strlen(arg)});
-    }
-    else
-    {
+    if (argsIterator.next()) |arg| {
+        std.debug.print("The length of \"{s}\" is {d}\n", .{ arg, zig_asm.my_strlen(arg) });
+    } else {
         std.debug.print("Error: this program must have 1 command line argument\n", .{});
     }
 }

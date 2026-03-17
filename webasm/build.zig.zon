@@ -1,13 +1,14 @@
 .{
-    .name = .zig_asm,
+    .name = .webasm,
     .version = "0.0.0",
-    .fingerprint = 0x3cf72ce72505ec7f, // Changing this has security and trust implications.
+    .fingerprint = 0x191ccda85960d3f7,
     .minimum_zig_version = "0.15.2",
     .dependencies = .{},
     .paths = .{
         "build.zig",
         "build.zig.zon",
         "src",
-        "Makefile",
+        "README.md",
+        "test.js",
     },
 }
