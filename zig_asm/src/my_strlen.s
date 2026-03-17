@@ -1,6 +1,6 @@
 .text
-.globl my_strlen
-.type my_strlen, @function
+    .globl my_strlen
+    .type my_strlen, @function
 
 # Function that returns the length of the string passed in the first argument
 my_strlen:

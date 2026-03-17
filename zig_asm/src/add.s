@@ -1,6 +1,6 @@
 .text
-.globl add
-.type add, @function
+    .globl add
+    .type add, @function
 
 add:
     # Reset the register value to zero. The value will be returned from the

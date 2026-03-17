@@ -10,6 +10,8 @@ pub fn main() !void {
     std.debug.print("3 + 7 = {d}\n", .{zig_asm.add(3, 7)});
 
     zig_asm.hello_world();
+    const msg = "Hello, World!\n";
+    zig_asm.greet(msg, @intCast(msg.len));
 
     // Initialize arguments
     // Then deinitialize at the end of scope

@@ -54,21 +54,4 @@ pub fn build(b: *std.Build) void {
     const test_step = b.step("test", "Run tests");
     test_step.dependOn(&run_mod_tests.step);
     test_step.dependOn(&run_exe_tests.step);
-
-    const release_flags = [_][]const u8{ "--std=c99", "-O3" };
-    const debug_flags = [_][]const u8{"--std=c99"};
-    const flags = if (optimize == .Debug) &debug_flags else &release_flags;
-    const c_exe = b.addExecutable(.{
-        .name = "c_asm",
-        .root_module = b.createModule(.{
-            .target = target,
-            .optimize = optimize,
-            .link_libc = true,
-            .strip = optimize != .Debug, // remove debug symbols
-        }),
-    });
-    c_exe.root_module.addCSourceFile(.{ .file = b.path("src/main.c"), .flags = flags });
-    c_exe.root_module.linkLibrary(asmlib);
-
-    b.installArtifact(c_exe);
 }
