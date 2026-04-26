@@ -19,7 +19,7 @@ pub fn build(b: *std.Build) void {
         .version = .{ .major = 1, .minor = 0, .patch = 0 },
     });
 
-    lib.installHeadersDirectory(b.path("include"), "", .{});
+    //lib.installHeadersDirectory(b.path("include"), "", .{});
     b.installArtifact(lib);
 
     const exe = b.addExecutable(.{
@@ -43,7 +43,7 @@ pub fn build(b: *std.Build) void {
     //const h_path = lib.getEmittedH();
     //exe.step.dependOn(&h_path);
 
-    exe.linkLibrary(lib);
+    exe.root_module.linkLibrary(lib);
     b.installArtifact(exe);
     const run_cmd = b.addRunArtifact(exe);
 

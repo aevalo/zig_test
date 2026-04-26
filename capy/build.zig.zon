@@ -1,0 +1,17 @@
+.{
+    .name = .capy,
+    .version = "0.0.0",
+    .fingerprint = 0x47249688e61df67e, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.14.1",
+    .dependencies = .{
+        .capy = .{
+            .url = "git+https://github.com/capy-ui/capy#fd77077e296a969ae258c595e75a0723183b3138",
+            .hash = "capy-0.4.1-kru7R1I2ZQRJqf62-3yxDDR7_Nx3swNCHcTGNGi-FH-W",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}
