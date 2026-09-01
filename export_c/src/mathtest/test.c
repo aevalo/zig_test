@@ -3,7 +3,8 @@
 #include <stdint.h>
 
 int main(int argc, char **argv) {
+    sayHello(420);
     int32_t result = add(42, 69);
-    printf("%d\n", result);
+    printf("add(42, 69) = %d\n", result);
     return 0;
 }

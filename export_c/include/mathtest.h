@@ -7,6 +7,7 @@
 extern "C" {
 #endif // __cplusplus
 
+void sayHello(int32_t num);
 int32_t add(int32_t a, int32_t b);
 
 #ifdef __cplusplus
