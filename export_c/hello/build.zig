@@ -4,8 +4,17 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const libRootModule = b.createModule(.{ .root_source_file = b.path("src/root.zig"), .target = target, .optimize = optimize, .strip = true, .pic = true });
-    libRootModule.linkSystemLibrary("zlib", .{ .use_pkg_config = .yes, .preferred_link_mode = .dynamic });
+    const libRootModule = b.createModule(.{
+        .root_source_file = b.path("src/root.zig"),
+        .target = target,
+        .optimize = optimize,
+        .strip = true,
+        .pic = true,
+    });
+    libRootModule.linkSystemLibrary("zlib", .{
+        .use_pkg_config = .yes,
+        .preferred_link_mode = .dynamic,
+    });
     const libVersion: std.SemanticVersion = std.SemanticVersion.parse("0.1.0") catch blk: {
         _ = b.addFail("Failed to parse library version");
         break :blk .{ .major = 0, .minor = 0, .patch = 0 };

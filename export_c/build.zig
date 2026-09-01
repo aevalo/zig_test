@@ -19,7 +19,7 @@ pub fn build(b: *std.Build) void {
         .version = .{ .major = 1, .minor = 0, .patch = 0 },
     });
 
-    //lib.installHeadersDirectory(b.path("include"), "", .{});
+    lib.installHeadersDirectory(b.path("include"), "", .{});
     b.installArtifact(lib);
 
     const exe = b.addExecutable(.{

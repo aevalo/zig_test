@@ -3,6 +3,14 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 int32_t add(int32_t a, int32_t b);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 #endif /* MATHTEST_H_INCLUDED */
