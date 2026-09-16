@@ -1,19 +1,18 @@
 const std = @import("std");
 
-pub export fn add(a: i32, b: i32) i32 {
-    std.debug.print("Adding {} and {}\n", .{ a, b });
+pub export fn add(a: i32, b: i32) callconv(.c) i32 {
     return a + b;
 }
 
-pub export fn sub(a: i32, b: i32) i32 {
+pub export fn sub(a: i32, b: i32) callconv(.c) i32 {
     return a - b;
 }
 
-pub export fn mul(a: i32, b: i32) i32 {
+pub export fn mul(a: i32, b: i32) callconv(.c) i32 {
     return a * b;
 }
 
-pub export fn div(a: i32, b: i32) f32 {
+pub export fn div(a: i32, b: i32) callconv(.c) f32 {
     const af: f32 = @floatFromInt(a);
     const bf: f32 = @floatFromInt(b);
     return af / bf;

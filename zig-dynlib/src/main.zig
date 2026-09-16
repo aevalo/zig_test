@@ -1,7 +1,6 @@
 const std = @import("std");
 const Io = std.Io;
 
-const mydynlib = @import("mydynlib");
 const zig_dynlib = @import("zig_dynlib");
 
 pub fn main(init: std.process.Init) !void {
@@ -24,28 +23,26 @@ pub fn main(init: std.process.Init) !void {
 
     try stdout_writer.flush(); // Don't forget to flush!
 
-    //var mydynlib = std.DynLib.open("libmydynlib.so") catch |err| switch (err) {
-    //    error.FileNotFound => {
-    //        const rc: i32 = @intFromError(err);
-    //        std.log.err("Failed to find library: {}:{}:{}", .{ err, rc, std.c.errno(rc) });
-    //        return;
-    //    },
-    //    else => {
-    //        std.log.err("Failed to load library: {}", .{err});
-    //        return;
-    //    },
-    //};
-    //defer mydynlib.close();
+    var mydynlib = std.DynLib.open("libmydynlib.so") catch |err| switch (err) {
+        error.FileNotFound => {
+            const rc: i32 = @intFromError(err);
+            std.log.err("Failed to find library: {}:{}", .{ err, rc });
+            return;
+        },
+        else => {
+            std.log.err("Failed to load library: {}", .{err});
+            return;
+        },
+    };
+    defer mydynlib.close();
 
-    //const add_fn = *const fn (a: i32, b: i32) i32;
-    //const sayHello_fn = *const fn (a: i32) void;
-    //const mydynlib_add = mydynlib.lookup(add_fn, "add") orelse return error.FunctionNotFound;
-    //const mydynlib_sayHello = mydynlib.lookup(sayHello_fn, "sayHello") orelse return error.FunctionNotFound;
+    const add_fn = *const fn (a: i32, b: i32) callconv(.c) i32;
+    const sayHello_fn = *const fn (a: i32) callconv(.c) i32;
+    const mydynlib_add = mydynlib.lookup(add_fn, "add") orelse return error.FunctionNotFound;
+    const mydynlib_sayHello = mydynlib.lookup(sayHello_fn, "sayHello") orelse return error.FunctionNotFound;
 
-    //const res = mydynlib_add(10, 10);
-    //std.debug.print("add(10, 10): {}\n", .{res});
-    //mydynlib_sayHello(42);
-    mydynlib.sayHello(42);
+    std.debug.print("add(10, 10): {}\n", .{mydynlib_add(10, 10)});
+    std.debug.print("mydynlib_sayHello(42): {}\n", .{mydynlib_sayHello(42)});
 }
 
 test "simple test" {

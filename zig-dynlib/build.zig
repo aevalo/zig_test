@@ -24,8 +24,8 @@ pub fn build(b: *std.Build) void {
 
     b.installArtifact(exe);
 
-    const dynlib_mod = b.addModule("mydynlib", .{
-        .root_source_file = b.path("src/lib.zig"),
+    const math_mod = b.addModule("math", .{
+        .root_source_file = b.path("src/math.zig"),
         .target = target,
     });
 
@@ -33,11 +33,11 @@ pub fn build(b: *std.Build) void {
         .name = "mydynlib",
         .linkage = .dynamic,
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/libroot.zig"),
+            .root_source_file = b.path("src/lib.zig"),
             .target = target,
             .optimize = optimize,
             .imports = &.{
-                .{ .name = "mydynlib", .module = dynlib_mod },
+                .{ .name = "math", .module = math_mod },
             },
             .pic = true,
             .strip = optimize != .Debug,
@@ -69,11 +69,11 @@ pub fn build(b: *std.Build) void {
 
     const run_exe_tests = b.addRunArtifact(exe_tests);
 
-    const dynlib_mod_tests = b.addTest(.{
-        .root_module = dynlib_mod,
+    const math_mod_tests = b.addTest(.{
+        .root_module = math_mod,
     });
 
-    const run_dynlib_mod_tests = b.addRunArtifact(dynlib_mod_tests);
+    const run_dynlib_mod_tests = b.addRunArtifact(math_mod_tests);
 
     const dynlib_tests = b.addTest(.{
         .root_module = dynlib.root_module,

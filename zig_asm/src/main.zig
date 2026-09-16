@@ -1,5 +1,6 @@
 const std = @import("std");
 
+const foo = @import("foolib");
 const zig_asm = @import("zig_asm");
 
 pub fn main() !void {
@@ -8,6 +9,8 @@ pub fn main() !void {
     const allocator = std.heap.page_allocator;
 
     std.debug.print("3 + 7 = {d}\n", .{zig_asm.add(3, 7)});
+
+    std.debug.print("foo() => {d}\n", .{foo.foo()});
 
     zig_asm.hello_world();
     const msg = "Hello, World!\n";
