@@ -1,0 +1,5 @@
+export TCL_LIBRARY := `pwd`
+
+#[env("TCL_LIBRARY", "$PWD")]
+run:
+    @zig build run
